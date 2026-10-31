@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101b35">
+  <title>Kas RT 08 — Pemuda-Pemudi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loginView" class="login-shell">
+    <div class="login-art">
+      <div class="brand-mark">08</div><span class="eyebrow">SISTEM INFORMASI WARGA</span>
+      <h1>Kas bersama,<br><em>lingkungan</em> lebih kuat.</h1>
+      <p>Portal kas dan data warga Pemuda-Pemudi RT 08.</p>
+      <div class="art-foot"><span class="pulse"></span> Transparan · Tertib · Terpercaya</div>
+    </div>
+    <form id="loginForm" class="login-card">
+      <div class="mini-brand"><span class="mini-icon">08</span><span>RT 08 <small>PEMUDA-PEMUDI</small></span></div>
+      <h2>Selamat datang</h2><p class="muted">Masuk untuk melihat informasi kas warga.</p>
+      <label>Email<input id="email" type="email" autocomplete="username" placeholder="nama@email.com" required></label>
+      <label>Kata sandi<input id="password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required></label>
+      <button class="btn primary full" type="submit">Masuk ke aplikasi <span>→</span></button>
+      <div id="loginError" class="error-text"></div>
+      <p class="login-note">Akun dibuat oleh admin. Warga tidak dapat mendaftar sendiri.</p>
+    </form>
+  </div>
+
+  <div id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="side-brand"><span class="mini-icon">08</span><span>RT 08<small>PEMUDA-PEMU DI</small></span></div>
+      <div class="side-label">MENU UTAMA</div>
+      <nav>
+        <button class="nav-link active" data-page="dashboard"><b>▦</b> Ringkasan</button>
+        <button class="nav-link" data-page="residents"><b>♙</b> Data warga</button>
+        <button class="nav-link" data-page="payments"><b>↗</b> Pembayaran</button>
+        <button class="nav-link" data-page="reports"><b>▤</b> Laporan</button>
+      </nav>
+      <div class="side-bottom"><div class="secure-note">▣ <span>Data terlindungi<br><small>Akses sesuai peran akun</small></span></div><button id="logoutBtn" class="logout">↪ Keluar akun</button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><div class="eyebrow dark">PORTAL WARGA · RT 08</div><h2 id="pageTitle">Ringkasan</h2></div><div class="user-chip"><span class="avatar">08</span><span><strong id="userEmail">Pengguna</strong><small id="userRole">Warga</small></span></div></header>
+      <div id="notice" class="notice hidden"></div>
+
+      <section id="page-dashboard" class="page">
+        <div class="welcome-row"><div><h3>Halo, selamat datang 👋</h3><p class="muted">Pantau kas dan pembayaran iuran wajib RT 08.</p></div><div class="year-pill" id="yearLabel"></div></div>
+        <div class="stats-grid">
+          <article class="stat-card dark-card"><div class="stat-top"><span>Total kas masuk</span><span class="stat-icon">↗</span></div><strong id="statIncome">Rp0</strong><small>Akumulasi pembayaran tercatat</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Total warga</span><span class="stat-icon blue">♙</span></div><strong id="statResidents">0</strong><small>Warga terdaftar</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Lunas</span><span class="stat-icon green">✓</span></div><strong id="statPaid">0</strong><small>Sudah memenuhi iuran tahun ini</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Belum lunas</span><span class="stat-icon amber">◷</span></div><strong id="statDue">0</strong><small>Masih memiliki sisa tagihan</small></article>
+        </div>
+        <div class="content-grid"><article class="panel"><div class="panel-head"><div><h3>Progres iuran tahunan</h3><p class="muted">Target Rp50.000 per warga</p></div><span class="soft-tag">TAHUN <span id="progressYear"></span></span></div><div class="progress-number"><strong id="progressPercent">0%</strong><span id="progressText">Rp0 terkumpul</span></div><div class="progress-track"><div id="progressBar"></div></div><div class="progress-foot"><span id="progressPaid">0 warga lunas</span><span id="progressCount">0 warga</span></div></article>
+        <article class="panel"><div class="panel-head"><div><h3>Informasi iuran</h3><p class="muted">Ketentuan tahun berjalan</p></div><span class="round-icon">i</span></div><div class="dues-amount">Rp50.000</div><div class="muted small">Iuran wajib per warga / tahun</div><div class="thin-line"></div><div class="info-row"><span>Periode</span><strong>Tahunan</strong></div><div class="info-row"><span>Pembayaran</span><strong>Bisa dicicil</strong></div><div class="info-row"><span>Pengelola</span><strong>Admin RT 08</strong></div></article></div>
+        <article class="panel table-panel"><div class="panel-head"><div><h3>Pembayaran terbaru</h3><p class="muted">Transaksi terakhir yang tercatat</p></div><button class="text-btn" data-goto="payments">Lihat semua →</button></div><div class="table-wrap"><table><thead><tr><th>TANGGAL</th><th>NAMA WARGA</th><th>CATATAN</th><th>NOMINAL</th></tr></thead><tbody id="recentRows"></tbody></table></div></article>
+      </section>
+
+      <section id="page-residents" class="page hidden"><div class="section-actions"><div><h3>Daftar warga</h3><p class="muted">Data warga yang terdaftar di lingkungan RT 08.</p></div><button id="addResidentBtn" class="btn primary admin-only">＋ Tambah warga</button></div><article class="panel table-panel"><div class="toolbar"><input id="residentSearch" class="search" placeholder="⌕  Cari nama atau alamat..."><span id="residentCount" class="muted small"></span></div><div class="table-wrap"><table><thead><tr><th>NAMA WARGA</th><th>ALAMAT / BLOK</th><th>NO. HP</th><th>STATUS IURAN</th><th class="admin-only">AKSI</th></tr></thead><tbody id="residentRows"></tbody></table></div></article></section>
+
+      <section id="page-payments" class="page hidden"><div class="section-actions"><div><h3>Riwayat pembayaran</h3><p class="muted">Catatan cicilan dan pelunasan iuran tahunan.</p></div><button id="addPaymentBtn" class="btn primary admin-only">＋ Catat pembayaran</button></div><article class="panel table-panel"><div class="toolbar"><input id="paymentSearch" class="search" placeholder="⌕  Cari nama warga..."><span class="muted small">Iuran wajib Rp50.000 / tahun</span></div><div class="table-wrap"><table><thead><tr><th>TANGGAL</th><th>NAMA WARGA</th><th>TAHUN</th><th>JUMLAH</th><th>CATATAN</th></tr></thead><tbody id="paymentRows"></tbody></table></div></article></section>
+
+      <section id="page-reports" class="page hidden"><div class="section-actions"><div><h3>Laporan kas</h3><p class="muted">Rekap iuran dan status pembayaran warga.</p></div><button id="printBtn" class="btn secondary">↓ Cetak / Simpan PDF</button></div><div class="stats-grid report-stats"><article class="stat-card"><span class="muted">Total pemasukan</span><strong id="reportIncome">Rp0</strong></article><article class="stat-card"><span class="muted">Total tagihan</span><strong id="reportTarget">Rp0</strong></article><article class="stat-card"><span class="muted">Sisa tagihan</span><strong id="reportRemaining">Rp0</strong></article></div><article class="panel table-panel"><div class="panel-head"><div><h3>Rekap per warga</h3><p class="muted">Periode tahun berjalan</p></div></div><div class="table-wrap"><table><thead><tr><th>NAMA WARGA</th><th>TAGIHAN</th><th>TERBAYAR</th><th>SISA</th><th>STATUS</th></tr></thead><tbody id="reportRows"></tbody></table></div></article></section>
+      <footer>© <span id="footerYear"></span> Pemuda-Pemudi RT 08 <span>•</span> Dibuat untuk transparansi bersama</footer>
+    </main>
+  </div>
+
+  <dialog id="residentDialog"><form id="residentForm" method="dialog" class="dialog-card"><div class="dialog-head"><div><span class="eyebrow dark">DATA WARGA</span><h3 id="residentDialogTitle">Tambah warga</h3></div><button type="button" class="close-btn" data-close="residentDialog">×</button></div><input type="hidden" id="residentId"><label>Nama lengkap<input id="residentName" required maxlength="100" placeholder="Nama warga"></label><label>Alamat / blok<input id="residentAddress" maxlength="150" placeholder="Contoh: RT 08 / RW 03"></label><label>Nomor HP<input id="residentPhone" maxlength="30" placeholder="08xxxxxxxxxx"></label><div class="dialog-actions"><button type="button" class="btn secondary" data-close="residentDialog">Batal</button><button class="btn primary" type="submit">Simpan data</button></div></form></dialog>
+
+  <dialog id="paymentDialog"><form id="paymentForm" method="dialog" class="dialog-card"><div class="dialog-head"><div><span class="eyebrow dark">TRANSAKSI KAS</span><h3>Catat pembayaran</h3></div><button type="button" class="close-btn" data-close="paymentDialog">×</button></div><label>Nama warga<select id="paymentResident" required></select></label><label>Tanggal pembayaran<input id="paymentDate" type="date" required></label><label>Nominal pembayaran (Rp)<input id="paymentAmount" type="number" min="1" step="1000" required placeholder="Contoh: 10000"></label><label>Catatan (opsional)<input id="paymentNote" maxlength="120" placeholder="Contoh: Cicilan pertama"></label><p class="form-hint">Pembayaran akan ditambahkan ke riwayat dan sisa tagihan dihitung otomatis.</p><div class="dialog-actions"><button type="button" class="btn secondary" data-close="paymentDialog">Batal</button><button class="btn primary" type="submit">Simpan pembayaran</button></div></form></dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js"></script>
+</body></html>
